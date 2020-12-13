@@ -9,49 +9,64 @@ import org.springframework.data.repository.query.Param;
 
 public interface ActeurRepository extends CrudRepository<Acteur, Long> {
 
+	/** Recherche tous les acteurs triés par identité
+	 * @return List
+	 */
 	@Query("From Acteur")
-	List<Acteur> findActeurs();
+	List<Acteur> findActeursTriesParIdentite();
 	
-	// TODO implémenter la requête JPQL permettant de trouver la liste des acteurs
-	// ayant joué dans un film paru durant
-	// l'année passée en paramètre
-	@Query("From Acteur WHERE identite LIKE %:identite%")
+	/** Recherche tous les acteurs dont l'identité (ou partie) est passée en paramètre
+	 * @param identite identité
+	 * @return List
+	 */
+	@Query("From Acteur")
 	List<Acteur> findActeursParIdentite(String identite);
 	
-	// TODO implémenter la requête JPQL permettant de trouver la liste des acteurs
-	// nés une année donnée
-	@Query("From Acteur WHERE year(anniversaire)=:annee")
+	/** Recherche tous les acteurs nés l'année passée en paramètre. Les acteurs sont triés par date de naissance ascendante.
+	 * @param annee année
+	 * @return List
+	 */
+	@Query("From Acteur")
 	List<Acteur> findActeursParAnneeNaissance(int annee);
 
 
-	// TODO implémenter la requête JPQL permettant de trouver la liste des acteurs
-	// ayant joué dans un film français
-	@Query("From Acteur a JOIN FETCH a.roles r WHERE r.nom=:roleName")
+	/** Recherche les acteurs dont le nom de personnage est passé en paramètre
+	 * @param roleName nom du personnage de fiction
+	 * @return List
+	 */
+	@Query("From Acteur")
 	List<Acteur> findActeursParRole(String roleName);
 		
-	// TODO implémenter la requête JPQL permettant de trouver la liste des acteurs
-	// ayant joué dans un film paru durant une année précise
-	@Query("From Acteur a JOIN FETCH a.roles r JOIN FETCH r.film f WHERE f.annee=:annee")
+	/** Recherche tous les acteurs ayant joué dans un film paru l'année passée en paramètre.
+	 * @param annee année
+	 * @return List
+	 */
+	@Query("From Acteur")
 	List<Acteur> findActeursParFilmParuAnnee(@Param("annee") int annee);
 
-	// TODO implémenter la requête JPQL permettant de trouver la liste des acteurs
-	// ayant joué dans des films d'un pays donné
-	@Query("SELECT distinct a From Acteur a JOIN FETCH a.roles r JOIN FETCH r.film f JOIN FETCH f.pays p WHERE p.nom=:nom")
+	/** Recherche tous les acteurs ayant joué dans un film produit dans le pays dont le nom est passé en paramètre
+	 * @param nom nom du pays
+	 * @return List
+	 */
+	@Query("From Acteur")
 	List<Acteur> findActeursParPays(String nom);
 	
-	// TODO implémenter la requête JPQL permettant de trouver la liste des acteurs
-	// ayant joué dans des films d'un pays donné
-	@Query("SELECT distinct a From Acteur a JOIN FETCH a.roles r JOIN FETCH r.film f JOIN FETCH f.pays p WHERE p.nom in (:noms) and f.annee=:annee")
+	/** Recherche tous les acteurs ayant joué dans un film paru l'année passée en paramètre et produit dans un des pays passés en paramètre
+	 * @param noms noms des pays de production des films
+	 * @param annee année de parution
+	 * @return List
+	 */
+	@Query("From Acteur")
 	List<Acteur> findActeursParListePaysEtAnnee(List<String> noms, int annee);
 	
-	// TODO implémenter la requête JPQL permettant de trouver la liste des acteurs
-	// ayant joué dans des films d'un pays donné
-	@Query("SELECT distinct a From Acteur a JOIN FETCH a.roles r JOIN FETCH r.film f JOIN FETCH f.realisateurs r WHERE r.identite like %:identite% and f.annee between :anneeMin and :anneeMax")
+	/** Recherche tous les acteurs ayant joué dans un film réalisé par la personne dont l'identité est passée en paramètre. Seuls les films dont l'année
+	 * de paution est comprise entre anneeMin et anneeMax sont concernés.
+	 * @param identite identité du réalisateur
+	 * @param anneeMin année min de recherche
+	 * @param anneeMax année max de recherche
+	 * @return List
+	 */
+	@Query("From Acteur")
 	List<Acteur> findActeursParRealisateurEntreAnnees(String identite, int anneeMin, int anneeMax);
 	
-	// TODO implémenter la requête JPQL permettant de trouver la liste des acteurs
-	// ayant joué dans un film co-produit par plusieurs pays
-	// durant une année précise
-//	@Query("From Acteur a JOIN FETCH a.roles r JOIN FETCH r.film f JOIN FETCH f.pays p WHERE p.nom in (:noms) and f.annee=:annee")
-//	List<Acteur> findActeursCoproductionAnnee(@Param("noms") List<String> noms, @Param("annee") int annee);
 }

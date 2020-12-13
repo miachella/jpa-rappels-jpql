@@ -24,9 +24,9 @@ public class ActeurRepositoryTest {
 	private ActeurRepository acteurRepository;
 
 	@Test
-	public void test() {
-		List<Acteur> acteurs = acteurRepository.findActeurs();
-		assertEquals(29300, acteurs.size());
+	public void testExtraireActeursTriesParIdentite() {
+		List<Acteur> acteurs = acteurRepository.findActeursTriesParIdentite();
+		assertEquals(1137, acteurs.size());
 	}
 	
 	@Test
@@ -38,7 +38,7 @@ public class ActeurRepositoryTest {
 	@Test
 	public void testExtraireActeursParFilmParuAnnee() {
 		List<Acteur> acteurs = acteurRepository.findActeursParFilmParuAnnee(2015);
-		assertEquals(3870, acteurs.size());
+		assertEquals(140, acteurs.size());
 	}
 	
 	@Test
@@ -59,18 +59,18 @@ public class ActeurRepositoryTest {
 	@Test
 	public void testExtraireActeursParPays() {
 		List<Acteur> acteurs = acteurRepository.findActeursParPays("France");
-		assertEquals(9304, acteurs.size());
+		assertEquals(158, acteurs.size());
 	}
 	
 	@Test
 	public void testExtraireActeursParListePaysEtAnnee() {
 		List<Acteur> acteurs = acteurRepository.findActeursParListePaysEtAnnee(Arrays.asList("France"), 2017);
-		assertEquals(386, acteurs.size());
+		assertEquals(24, acteurs.size());
 	}
 	
 	@Test
 	public void testExtraireParRealisateurEntreAnnee() {
 		List<Acteur> acteurs = acteurRepository.findActeursParRealisateurEntreAnnees("Ridley Scott", 2010, 2020);
-		assertEquals(43, acteurs.size());
+		assertEquals(27, acteurs.size());
 	}
 }
