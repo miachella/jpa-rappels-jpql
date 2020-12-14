@@ -55,6 +55,13 @@ public class FilmRepositoryTest {
 	}
 	
 	@Test
+	public void testExtraireFilmsParNbGenres() {
+		List<Film> films = filmRepository.findFilmsParNbGenres(8);
+		assertEquals(2, films.size());
+		assertEquals("Jonah Hex: Behind the Scenes ~ B-Roll 2", films.get(0).getNom());
+	}
+	
+	@Test
 	public void testExtraireFilmsCommunsPourActeurs() {
 		List<Film> films = filmRepository.findFilmsAvecPlusieursActeurs("Leonardo DiCaprio", "Marion Cotillard");
 		assertEquals(1, films.size());
