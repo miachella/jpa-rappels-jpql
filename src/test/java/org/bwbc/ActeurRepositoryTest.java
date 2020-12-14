@@ -30,18 +30,6 @@ public class ActeurRepositoryTest {
 	}
 	
 	@Test
-	public void testExtraireActeursParAnneeNaissance() {
-		List<Acteur> acteurs = acteurRepository.findActeursParAnneeNaissance(1985);
-		assertEquals(10, acteurs.size());
-	}
-	
-	@Test
-	public void testExtraireActeursParFilmParuAnnee() {
-		List<Acteur> acteurs = acteurRepository.findActeursParFilmParuAnnee(2015);
-		assertEquals(140, acteurs.size());
-	}
-	
-	@Test
 	public void testExtraireActeursParIdentite() {
 		List<Acteur> acteurs = acteurRepository.findActeursParIdentite("Marion Cotillard");
 		assertEquals(1, acteurs.size());
@@ -49,11 +37,24 @@ public class ActeurRepositoryTest {
 	}
 	
 	@Test
+	public void testExtraireActeursParAnneeNaissance() {
+		List<Acteur> acteurs = acteurRepository.findActeursParAnneeNaissance(1985);
+		assertEquals(10, acteurs.size());
+	}
+	
+
+	@Test
 	public void testExtraireActeursParRole() {
 		List<Acteur> acteurs = acteurRepository.findActeursParRole("Harley Quinn");
 		assertEquals(2, acteurs.size());
 		assertEquals("Margot Robbie", acteurs.get(0).getIdentite());
 		assertEquals("Margot Robbie", acteurs.get(1).getIdentite());
+	}
+	
+	@Test
+	public void testExtraireActeursParFilmParuAnnee() {
+		List<Acteur> acteurs = acteurRepository.findActeursParFilmParuAnnee(2015);
+		assertEquals(140, acteurs.size());
 	}
 	
 	@Test

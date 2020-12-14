@@ -40,6 +40,15 @@ public interface FilmRepository extends CrudRepository<Film, Long> {
 	 */
 	@Query("From Film")
 	List<Film> findFilmsParGenre(String genre);
+	
+	/** Retourne tous les films réalisés par un réalisateur donné entre 2 dates, triés par année
+	 * @param identite identité du réalisateur
+	 * @param minAnnee année min
+	 * @param maxAnnee année max
+	 * @return List
+	 */
+	@Query("From Film")
+	List<Film> findFilmsParRealisateurEtAnneesTriesParAnnee(String identite, int minAnnee, int maxAnnee);
 
 	/** Recherche les films dans lesquels les 2 personnes passées en paramètre ont joué.
 	 * @param identite1 identité de la personne 1
